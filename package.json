@@ -1,0 +1,22 @@
+{
+  "name": "koa-dust",
+  "version": "0.0.1",
+  "description": "Dustjs-linkedin renderer for koa",
+  "main": "index.js",
+  "scripts": {},
+  "dependencies": {
+    "dustjs-linkedin": "^2.7.2",
+    "lodash": "^4.6.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kentoss/koa-dust"
+  },
+  "keywords": [],
+  "author": "kentoss",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kentoss/koa-dust/issues"
+  }
+}
