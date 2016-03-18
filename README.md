@@ -1,5 +1,13 @@
 # koa-dust
 
+> **Note:** this is intended for koa v2
+
+## Install
+
+```
+$ npm install koa-dust
+```
+
 ## Usage
 
 **Basic Example**
