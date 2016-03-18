@@ -34,8 +34,7 @@ http.createServer(app.callback()).listen(process.env.PORT || 5000);
 **Examples**
 ```js
 app.use(dust(__dirname + 'views', {ext: 'dust', compile: true})); // Compile templates as they are needed
-```
-```js
+
 app.use(dust(__dirname + 'views', {cache: false})); // Disable cache during development
 ```
 
