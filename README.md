@@ -20,9 +20,9 @@ const koa = require('koa');
 const dust = require('koa-dust');
 const app = new koa();
 
-app.use(dust(__dirname + 'views'));
+app.use(dust(__dirname + '/views'));
 app.use(async (ctx, next) => {
-	await ctx.renderPage('index', {foo:"bar"});
+	await ctx.render('index', {foo:"bar"});
 });
 
 http.createServer(app.callback()).listen(process.env.PORT || 5000);
@@ -39,19 +39,23 @@ http.createServer(app.callback()).listen(process.env.PORT || 5000);
 * `options.stream` [Boolean]: Stream result
 * `options.cache` [Boolean]: Cache result
 
+Note: `options` can also be used to set dust config values
+
 **Examples**
 ```js
-app.use(dust(__dirname + 'views', {ext: 'dust', compile: true})); // Compile templates as they are needed
-
-app.use(dust(__dirname + 'views', {cache: false})); // Disable cache during development
+// Compile templates as they are needed
+app.use(dust(__dirname + '/views', {ext: 'dust', compile: true}));
+// Disable cache during development
+app.use(dust(__dirname + '/views', {cache: false}));
 ```
 
-#### `ctx.renderPage(view, data)`
+#### `ctx.render(view, data)`
 
 * `view` [String]: Name of the template file; can be absolute path; does not require extension
 * `data` [Object]: Variables to be passed to the template
 
 **Example**
 ```js
-app.use(async (ctx, next) => { await ctx.renderPage('index', {foo:'bar'}); }); // Render template file 'index.js' with data `foo: 'bar'`
+// Render template file 'index.js' with data
+app.use(async (ctx, next) => { await ctx.render('index', {foo:'bar'}); });
 ```
