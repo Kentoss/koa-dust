@@ -56,7 +56,7 @@ module.exports = (viewsPath, options) => {
 
 	return (ctx, next) => {
 		if (ctx.renderPage) return next();
-		ctx.renderPage = (view, locals) => {
+		ctx.render = (view, locals) => {
 			if (typeof view === 'undefined') { return ctx.throw('No view file specified'); }
 			locals = locals || {};
 
