@@ -10,14 +10,16 @@ const defaults = {
 	ext: 'js',
 	compile: false,
 	cache: true,
-	stream: true
+	stream: true,
+	helpers: {}
 };
 
 module.exports = (viewsPath, options) => {
 	options = _.defaults({}, options, defaults);
 
-	dust.config['cache'] = options.cache;
-	dust.config['stream'] = options.stream;
+	_.each(options, (v,k) => {
+		dust.config[k] = v;
+	});
 
 	dust.onLoad = (templatePath, opts, cb) => {
 		let readTemplate = (err, file, name) => {
