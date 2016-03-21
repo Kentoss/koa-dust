@@ -28,6 +28,35 @@ app.use(async (ctx, next) => {
 http.createServer(app.callback()).listen(process.env.PORT || 5000);
 ```
 
+**Globals & Before Render Example**
+
+```js
+const crypto = require('crypto');
+const http = require('http');
+const koa = require('koa');
+const dust = require('koa-dust');
+const app = new koa();
+
+let options = {
+	globals: {
+		"critical-css": fs.readFileSync(__dirname + '/critical.css') // Load in critical CSS from a local file
+	},
+	beforeRender: (view, locals) => {
+		let MD5 = crypto.createHash('md5');
+		locals.pageID = MD5.update(view).digest('hex'); // Adds a unique page ID based on the view name for use in the template
+	}
+};
+
+app.use(dust(__dirname + '/views', options));
+app.use(async (ctx, next) => {
+	await ctx.render('index', {foo:"bar"});
+});
+
+http.createServer(app.callback()).listen(process.env.PORT || 5000);
+```
+
+> Critical CSS and Page ID can then be applied using `{critical-css}` and `{pageID}` respectively inside any view template
+
 ## API
 
 #### `dust(folder, options)`
@@ -38,6 +67,8 @@ http.createServer(app.callback()).listen(process.env.PORT || 5000);
 * `options.compile` [Boolean]: Compile template files
 * `options.stream` [Boolean]: Stream result
 * `options.cache` [Boolean]: Cache result
+* `options.globals` [Object]: Object containing global template variables
+* `options.beforeRender` [Function (view, locals)]: Called before render output, allows transforming the locals object to inject additional view-specific data
 
 Note: `options` can also be used to set dust config values
 
