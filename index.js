@@ -56,9 +56,10 @@ module.exports = (viewsPath, options) => {
 
 	return (ctx, next) => {
 		if (ctx.render) return next();
+		ctx.globals = ctx.globals||{}; // Initialize globals object if none exists
 		ctx.render = (view, locals) => {
 			if (typeof view === 'undefined') { return ctx.throw('No view file specified'); }
-			locals = locals || {};
+			locals = _.defaults({}, locals, ctx.globals); // Combine locals and globals
 
 			let ext = (extname(view) || '.' + options.ext).slice(1);
 			let renderOptions = {
