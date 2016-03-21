@@ -11,6 +11,7 @@ const defaults = {
 	compile: false,
 	cache: true,
 	stream: true,
+	globals: {},
 	helpers: {}
 };
 
@@ -56,10 +57,10 @@ module.exports = (viewsPath, options) => {
 
 	return (ctx, next) => {
 		if (ctx.render) return next();
-		ctx.globals = ctx.globals||{}; // Initialize globals object if none exists
+		ctx.globals = _.defaults({}, ctx.globals, options.globals); // Initialize globals object
 		ctx.render = (view, locals) => {
 			if (typeof view === 'undefined') { return ctx.throw('No view file specified'); }
-			locals = _.defaults({}, locals, ctx.globals); // Combine locals and globals
+			locals = _.defaults({}, locals); // Combine locals
 
 			let ext = (extname(view) || '.' + options.ext).slice(1);
 			let renderOptions = {
@@ -68,8 +69,12 @@ module.exports = (viewsPath, options) => {
 				locals: locals
 			};
 
-			let context = dust.context({}, renderOptions).push(locals);
+			let context = dust.context(ctx.globals, renderOptions).push(locals);
 			context.templateName = view.slice(-ext.length) === ext ? view.slice(0, -ext.length) : view;
+
+			if (typeof options.beforeRender === 'function') {
+				options.beforeRender(view, locals);
+			}
 
 			return new Promise((resolve, reject) => {
 				if (options.stream === true) {
