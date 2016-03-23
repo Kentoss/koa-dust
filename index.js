@@ -1,7 +1,7 @@
 "use strict";
 const fs = require('fs');
 const _ = require('lodash');
-const dust = require('dustjs-linkedin');
+const dust = require('dustjs-helpers');
 const resolve = require('path').resolve;
 const extname = require('path').extname;
 const isAbsolute = require('path').isAbsolute;
