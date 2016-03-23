@@ -63,13 +63,8 @@ module.exports = (viewsPath, options) => {
 			locals = _.defaults({}, locals); // Combine locals
 
 			let ext = (extname(view) || '.' + options.ext).slice(1);
-			let renderOptions = {
-				name: view,
-				ext: ext,
-				locals: locals
-			};
 
-			let context = dust.context(ctx.globals, renderOptions).push(locals);
+			let context = dust.context(ctx.globals).push(locals);
 			context.templateName = view.slice(-ext.length) === ext ? view.slice(0, -ext.length) : view;
 
 			if (typeof options.beforeRender === 'function') {
