@@ -1,5 +1,7 @@
 # koa-dust
 
+Koa middleware for rendering Dustjs templates using dustjs-linkedin. Supports compiling, caching, helpers, globals, & streaming.
+
 > **Note:** this is intended for koa v2
 
 ## Install
