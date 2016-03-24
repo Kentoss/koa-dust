@@ -1,3 +1,9 @@
+#### v0.0.3 - `March 24th, 2016`
+* Added option for passing global variables to template context
+* Added `beforeRender` option for transforming local variables before rendering
+* Switch to dustjs-helpers to support the pre-made dust helpers
+* Fixed readme showing incorrect examples
+
 #### v0.0.2 - `March 19th, 2016`
 * Renamed `ctx.renderPage` to `ctx.render` 
 * Pass config variables through to dust instance, allows helpers to be defined
