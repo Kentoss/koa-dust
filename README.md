@@ -21,8 +21,8 @@ const dust = require('koa-dust');
 const app = new koa();
 
 app.use(dust(__dirname + '/views'));
-app.use(async (ctx, next) => {
-	await ctx.render('index', {foo:"bar"});
+app.use((ctx, next) => {
+	ctx.render('index', {foo:"bar"});
 });
 
 http.createServer(app.callback()).listen(process.env.PORT || 5000);
@@ -50,8 +50,8 @@ let options = {
 };
 
 app.use(dust(__dirname + '/views', options));
-app.use(async (ctx, next) => {
-	await ctx.render('index', {foo:"bar"});
+app.use((ctx, next) => {
+	ctx.render('index', {foo:"bar"});
 });
 
 http.createServer(app.callback()).listen(process.env.PORT || 5000);
@@ -90,5 +90,5 @@ app.use(dust(__dirname + '/views', {cache: false}));
 **Example**
 ```js
 // Render template file 'index.js' with data
-app.use(async (ctx, next) => { await ctx.render('index', {foo:'bar'}); });
+app.use((ctx, next) => { ctx.render('index', {foo:'bar'}); });
 ```
