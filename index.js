@@ -2,10 +2,10 @@
 const fs = require('fs');
 const _ = require('lodash');
 const dust = require('dustjs-helpers');
+const Readable = require('stream').Readable;
 const resolve = require('path').resolve;
 const extname = require('path').extname;
 const isAbsolute = require('path').isAbsolute;
-const Brook = require('./lib/brook');
 const defaults = {
 	ext: 'js',
 	compile: false,
@@ -74,14 +74,15 @@ module.exports = (viewsPath, options) => {
 			return new Promise((resolve, reject) => {
 				if (options.stream === true) {
 					let stream = dust.stream(view, context);
-					ctx.set('Content-Type', 'text/html');
-					ctx.body = new Brook(stream);
-					return resolve();
+					ctx.type = "html";
+					let body = ctx.body = new Readable({read: ()=>{}}); // Ensure body is readable stream
+					stream.on('data', (d)=>{ if (d.trim().length > 0) { body.push(d); } }); // Filter out chunks that are just whitespace
+					stream.on('end', ()=>{ body.push(null); resolve(); }); // Ensure the response is terminated and the render is resolved
 				} else {
 					dust.render(view, context, (err, data) => {
 						if (err) return reject(err);
 						ctx.body = data;
-						return resolve();
+						resolve();
 					});
 				}
 			});
