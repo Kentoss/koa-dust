@@ -42,8 +42,10 @@ let options = {
 		"critical-css": fs.readFileSync(__dirname + '/critical.css') // Load in critical CSS from a local file
 	},
 	beforeRender: (view, locals) => {
+		// Adds a unique page ID based on the view name for use in the template
+		// You would want to cache the result of this instead of running it every request
 		let MD5 = crypto.createHash('md5');
-		locals.pageID = MD5.update(view).digest('hex'); // Adds a unique page ID based on the view name for use in the template
+		locals.pageID = MD5.update(view).digest('hex');
 	}
 };
 
