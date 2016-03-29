@@ -11,14 +11,14 @@ const defaults = {
 	compile: false,
 	cache: true,
 	stream: true,
-	globals: {},
-	helpers: {}
+	globals: {}
 };
 
 module.exports = (viewsPath, options) => {
 	options = _.defaults({}, options, defaults);
 
 	_.each(options, (v,k) => {
+		if (typeof v === 'object') dust.config[k] = _.defaults(v, dust.config[k]); return; // Combine objects instead of replacing them - overwrite where there is a collision
 		dust.config[k] = v;
 	});
 
