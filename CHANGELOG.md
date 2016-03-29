@@ -1,3 +1,6 @@
+#### v0.0.4 - `Pending`
+* Exposed Koa context to beforeRender function
+
 #### v0.0.3 - `March 24th, 2016`
 * Added option for passing global variables to template context
 * Added `beforeRender` option for transforming local variables before rendering

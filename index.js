@@ -68,7 +68,7 @@ module.exports = (viewsPath, options) => {
 			context.templateName = view.slice(-ext.length) === ext ? view.slice(0, -ext.length) : view;
 
 			if (typeof options.beforeRender === 'function') {
-				options.beforeRender(view, locals);
+				options.beforeRender(ctx, view, locals);
 			}
 
 			return new Promise((resolve, reject) => {
