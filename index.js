@@ -60,7 +60,7 @@ module.exports = (viewsPath, options) => {
 		ctx.globals = _.defaults({}, ctx.globals, options.globals); // Initialize globals object
 		ctx.render = (view, locals) => {
 			if (typeof view === 'undefined') { return ctx.throw('No view file specified'); }
-			locals = _.defaults({}, locals); // Combine locals
+			locals = _.defaults({}, locals, ctx.locals); // Combine locals
 
 			let ext = (extname(view) || '.' + options.ext).slice(1);
 

@@ -1,6 +1,7 @@
 #### v0.0.4 - `Pending`
 * Exposed Koa context to beforeRender function
 * Merge objects being passed to Dustjs config from options variable instead of replacing them, fixes default helpers
+* Allow locals to be passed from other middleware through the koa context through ctx.locals
 
 #### v0.0.3 - `March 24th, 2016`
 * Added option for passing global variables to template context
