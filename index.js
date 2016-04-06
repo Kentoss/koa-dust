@@ -85,6 +85,9 @@ module.exports = (viewsPath, options) => {
 						resolve();
 					});
 				}
+				if (typeof options.afterRender === 'function') {
+					options.afterRender(ctx, view, locals);
+				}
 			});
 		};
 		return next();
