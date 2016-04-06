@@ -72,7 +72,8 @@ http.createServer(app.callback()).listen(process.env.PORT || 5000);
 * `options.stream` [Boolean]: Stream result
 * `options.cache` [Boolean]: Cache result
 * `options.globals` [Object]: Object containing global template variables
-* `options.beforeRender` [Function (ctx, view, locals)]: Called before render output, allows transforming the locals object to inject additional view-specific data
+* `options.beforeRender` [Function (ctx, view, locals)]: Called BEFORE dust render, allows transforming the locals object to inject additional view-specific data
+* `options.afterRender` [Function (ctx, view, locals)]: Called AFTER dust render, allows the render process to move ahead asyncronously while you do some other things (like HTTP/2 push_promise)
 
 Note: `options` can also be used to set dust config values
 
