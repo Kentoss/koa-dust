@@ -61,6 +61,24 @@ http.createServer(app.callback()).listen(process.env.PORT || 5000);
 
 > Critical CSS and Page ID can then be applied using `{critical-css}` and `{pageID}` respectively inside any view template
 
+**Disabling Streaming**
+
+If for some reason you decide to disable template streaming, you will need to run the `render` function asyncronously, otherwise the page will return 404
+
+```js
+const http = require('http');
+const koa = require('koa');
+const dust = require('koa-dust');
+const app = new koa();
+
+app.use(dust(__dirname + '/views', {stream:false}));
+app.use(async (ctx, next) => {
+	await ctx.render('index', {foo:"bar"});
+});
+
+http.createServer(app.callback()).listen(process.env.PORT || 5000);
+```
+
 ## API
 
 #### `dust(folder, options)`
