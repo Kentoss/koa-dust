@@ -1,6 +1,6 @@
 {
   "name": "koa-dust",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Dustjs-linkedin renderer for koa",
   "main": "index.js",
   "scripts": {},
