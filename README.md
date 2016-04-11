@@ -12,6 +12,10 @@ $ npm install koa-dust
 
 ## Usage
 
+`koa-dust` adds a new method `ctx.render(view, locals)` to the Koa context which renders template files using DustJS via `dustjs-linkedin`. For more information on DustJS templates please see the [official DustJS website](http://www.dustjs.com/). Global template variables can be passed to DustJS via the `options.globals` setting for `koa-dust`, as well as through the Koa context using `ctx.globals`. Similarly, template local variables may also be set through the Koa context using `ctx.locals` in addition to being set using `ctx.render`. Locals set using `ctx.render` will overwrite those set using `ctx.locals`.
+
+Locals may also be transformed or added to using `options.beforeRender(ctx, view, locals)`. This is useful when you need to run a function with a unique result for each template. You can also use `options.afterRender(ctx, view, locals)` which fires immediately after calling the DustJS render function (**note:** if you are using streams, the function calls after initializing the stream as opposed to when the stream ends). This is intended for global post-render functions that can wait until after the client starts receiving a response to run, such as HTTP/2 PUSH_PROMISE frames.
+
 **Basic Example**
 
 Note: by default koa-dust expects pre-compiled templates saved as js files. See API below to change this behavior.
