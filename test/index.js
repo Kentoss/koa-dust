@@ -45,7 +45,6 @@ describe('render', function(){
 			.parse(streamCheck)
 			.end(function(err, res) {
 				if (err) return done(err);
-				console.log(res.body.chunks);
 				assert.ok(res.body.chunks < 2);
 				assert.ok(/<title>test<\/title>/.test(res.body.text));
 				assert.ok(/<body>test body<\/body>/.test(res.body.text));
