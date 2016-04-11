@@ -1,3 +1,6 @@
+#### v0.0.5 - `April 11th, 2016`
+* Quick fix for `dustjs-linkedin` peer dependency
+
 #### v0.0.4 - `April 11th, 2016`
 * Exposed Koa context to `beforeRender` function
 * Merge objects being passed to Dustjs config from options variable instead of replacing them, fixes default helpers
