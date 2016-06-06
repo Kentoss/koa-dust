@@ -94,6 +94,8 @@ http.createServer(app.callback()).listen(process.env.PORT || 5000);
 * `options.stream` [Boolean]: Stream result
 * `options.cache` [Boolean]: Cache result
 * `options.globals` [Object]: Object containing global template variables
+* `options.helpers` [Object]: Object containing helper functions
+* `options.filters` [Object]: Object containing filter functions
 * `options.beforeRender` [Function (ctx, view, locals)]: Called BEFORE dust render, allows transforming the locals object to inject additional view-specific data
 * `options.afterRender` [Function (ctx, view, locals)]: Called AFTER dust render, allows the render process to move ahead asyncronously while you do some other things (like HTTP/2 push_promise)
 
@@ -116,4 +118,29 @@ app.use(dust(__dirname + '/views', {cache: false}));
 ```js
 // Render template file 'index.js' with data
 app.use((ctx, next) => { ctx.render('index', {foo:'bar'}); });
+```
+
+## Using Helpers & Filters
+
+The API for creating helpers and filters is identical to their DustJS implementation. However, instead of attaching them to the `dust` object, they are passed via the `options` parameter when initializing `koa-dust`.
+
+**Example**
+
+```js
+const options = {
+	helpers: {
+		myHelper: (chunk, context, bodies, params) => {
+			/* logic here */
+			return chunk;
+		}
+	},
+	filters: {
+		myFilter: (value) => {
+			/* modify the value */
+			return value;
+		}
+	}
+}
+
+app.use(dust(__dirname + 'views', options));
 ```
