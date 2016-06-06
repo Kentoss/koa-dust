@@ -77,6 +77,8 @@ module.exports = (viewsPath, options) => {
 			let context = dust.context(ctx.globals).push(locals);
 			context.templateName = view.slice(-ext.length) === ext ? view.slice(0, -ext.length) : view;
 
+			ctx.type = "html"; // type defaults to HTML
+
 			if (typeof options.beforeRender === 'function') {
 				options.beforeRender(ctx, view, locals);
 			}
@@ -84,7 +86,6 @@ module.exports = (viewsPath, options) => {
 			return new Promise((resolve, reject) => {
 				if (options.stream === true) {
 					let stream = dust.stream(view, context);
-					ctx.type = "html";
 					let body = ctx.body = new Readable({read: ()=>{}}); // Ensure body is readable stream
 					stream.on('data', (d)=>{ if (d.trim().length > 0) { body.push(d); } }); // Filter out chunks that are just whitespace
 					stream.on('end', ()=>{ body.push(null); resolve(); }); // Ensure the response is terminated and the render is resolved
