@@ -17,6 +17,16 @@ const defaults = {
 module.exports = (viewsPath, options) => {
 	options = _.defaults({}, options, defaults);
 
+	if (options.helpers) {
+		dust.helpers = _.defaults({}, options.helpers, dust.helpers); // Merge helpers
+		options.helpers = null; // Remove helpers object from options, it's not needed any more
+	}
+
+	if (options.filters) {
+		dust.filters = _.defaults({}, options.filters, dust.filters); // Merge filters
+		options.filters = null; // Remove filters object from options, it's not needed any more
+	}
+
 	_.each(options, (v,k) => {
 		if (typeof v === 'object') dust.config[k] = _.defaults(v, dust.config[k]); return; // Combine objects instead of replacing them - overwrite where there is a collision
 		dust.config[k] = v;
