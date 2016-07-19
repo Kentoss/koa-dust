@@ -26,9 +26,11 @@ module.exports = (viewsPath, options) => {
 		dust.filters = _.defaults({}, options.filters, dust.filters); // Merge filters
 		options.filters = null; // Remove filters object from options, it's not needed any more
 	}
-
-	_.each(options, (v,k) => {
-		if (typeof v === 'object') dust.config[k] = _.defaults(v, dust.config[k]); return; // Combine objects instead of replacing them - overwrite where there is a collision
+	
+	_.each(options, function(v,k) {
+		if (typeof v === 'object')  {
+			return dust.config[k] = _.defaults(v, dust.config[k]); // Combine objects instead of replacing them - overwrite where there is a collision
+		}
 		dust.config[k] = v;
 	});
 
