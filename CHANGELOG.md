@@ -1,3 +1,8 @@
+#### v0.0.6 - `September 16th, 2018`
+* Update dependencies in package.json (from npm audit warnings).
+* Add listener to on error if streaming which rejects promise.
+
+
 #### v0.0.5 - `April 11th, 2016`
 * Quick fix for `dustjs-linkedin` peer dependency
 

@@ -1,12 +1,12 @@
 {
   "name": "koa-dust",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Dustjs-linkedin renderer for koa",
   "files": [
     "index.js"
   ],
   "scripts": {
-    "test": "mocha --compilers js:babel-register --require babel-polyfill"
+    "test": "mocha --require babel-register --exit --require babel-polyfill"
   },
   "dependencies": {
     "dustjs-linkedin": "^2.7.2",
@@ -19,8 +19,8 @@
     "babel-preset-stage-3": "^6.5.0",
     "babel-register": "^6.7.2",
     "koa": "2",
-    "mocha": "2",
-    "supertest": "1"
+    "mocha": "^5.2.0",
+    "supertest": "^3.3.0"
   },
   "repository": {
     "type": "git",
